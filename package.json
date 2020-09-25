@@ -1,6 +1,6 @@
 {
   "name": "react-native-jsonforms-mjb",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "Package for Json Forms Management",
   "main": "index.js",
   "scripts": {

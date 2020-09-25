@@ -8,6 +8,7 @@ import ContentQuestion from './ContentQuestion';
 interface ComponentInfo {
     onCancel: (e: any) => any;
     uiSchema: any;
+    onError: (e:any) => any;
     onSubmit: (e: any) => any;
     schema: any;
 }
@@ -19,7 +20,19 @@ export const ReactJsonForm = (props: ComponentInfo) => {
     });
     const onSubmit = () => {
         console.log("[INFO], On Submit")
-        props.onSubmit(state.formData)
+        //Check if error
+        var missingMandatory = []
+        props.schema.required.map((e, i) => {
+            if (typeof state.formData[e] === "undefined"){
+                missingMandatory.push(e)
+            }
+        })
+        if (missingMandatory.length >=1){
+            console.log("Missing => ",missingMandatory)
+            props.onError(missingMandatory)
+        }else{
+            props.onSubmit(state.formData)
+        }
     }
     const onUpdate= (e:any) => {
         console.log("[INFO], On Update Parents",e)
